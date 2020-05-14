@@ -10,7 +10,7 @@ class Input(Enum):
     BLACK_DF = ''
     WHITE_D = ''
     BLACK_D = ''
-    WHITE_DB = ''
+    WHITE_DB = '<:CDB1:710506475952275569>'
     BLACK_DB = ''
     WHITE_B = ''
     BLACK_B = ''
