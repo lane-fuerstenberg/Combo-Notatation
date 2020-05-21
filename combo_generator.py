@@ -24,12 +24,13 @@ def replace_all_inputs_in(word):
 def replace_matching_key(word):
     parsed_word = ""
     for keys in Input.keys():
-        result = get_matching_key(keys, word)
-        if result:
-            for k in keys:
-                word = word.replace(k, "")
-            parsed_word += result
-            result = ""
+        while does_key_has_match(keys, word):
+            result = Input.get(keys)
+            if result:
+                for k in keys:
+                    word = word.replace(k, "", 1)
+                parsed_word += result
+                result = ""
 
     return parsed_word
 
@@ -40,3 +41,10 @@ def get_matching_key(keys, word):
             return Input.get(keys)
 
     return ""
+
+def does_key_has_match(keys, word):
+    for key in keys:
+        if key in word:
+            return True
+
+    return False
