@@ -20,10 +20,10 @@ async def combo(ctx, *args):
     converted_combo = combo_generator.convert(args)
     await ctx.send(converted_combo)
 
+
 @bot.command()
 async def combo_bug(ctx, *args):
     await ctx.send('theres been a bug!')
-
 
 
 bot.run(TOKEN)
