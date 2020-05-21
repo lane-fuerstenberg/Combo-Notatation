@@ -23,27 +23,29 @@ def replace_all_inputs_in(word):
 
 
 def replace_matching_key(word):
+    parsed_word = ""
     for keys in Input.keys():
 
         # looks pretty bad but python automatically converts 1 length tuples into strings
         # this messes up the code if it does not validate that it has a tuple first (might be a better solution)
         if type(keys) is str:
-            word = replace_with_string(keys, word)
+            parsed_word += replace_with_string(keys, word)
         else:
-            word = replace_with_tuple(keys, word)
+            parsed_word += replace_with_tuple(keys, word)
 
-    return word
+    return parsed_word
 
 
 def replace_with_string(key, word):
-    if re.search(r'\b' + key + r'\b', word):
-        word = word.replace(key, Input.get(key))
-    return word
+    if key in word:
+        return Input.get(key)
+
+    return ""
 
 
 def replace_with_tuple(keys, word):
     for key in keys:
-        if re.search(r'\b' + key + r'\b', word):
-            word = word.replace(key, Input.get(keys))
+        if key in word:
+            return Input.get(keys)
 
-    return word
+    return ""
