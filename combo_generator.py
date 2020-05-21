@@ -26,9 +26,9 @@ def replace_matching_key(word):
     for keys in Input.keys():
         result = get_matching_key(keys, word)
         if result:
-            for k in keys:
-                word = word.replace(k, "")
-            parsed_word += result
+            for values in Input.get(keys):
+                word = word.replace(values, "")
+            parsed_word += result[0]
             result = ""
 
     return parsed_word
