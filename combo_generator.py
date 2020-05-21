@@ -26,9 +26,9 @@ def replace_matching_key(word):
     for keys in Input.keys():
         result = get_matching_key(keys, word)
         if result:
-            for values in Input.get(keys):
-                word = word.replace(values, "")
-            parsed_word += result[0]
+            for k in keys:
+                word = word.replace(k, "")
+            parsed_word += result
             result = ""
 
     return parsed_word
@@ -36,8 +36,7 @@ def replace_matching_key(word):
 
 def get_matching_key(keys, word):
     for key in keys:
-        p = re.compile(f'{key}')
-        if p.match(word):
+        if key in word:
             return Input.get(keys)
 
     return ""
