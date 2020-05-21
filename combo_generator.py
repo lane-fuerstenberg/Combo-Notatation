@@ -25,25 +25,12 @@ def replace_all_inputs_in(word):
 def replace_matching_key(word):
     parsed_word = ""
     for keys in Input.keys():
-
-        # looks pretty bad but python automatically converts 1 length tuples into strings
-        # this messes up the code if it does not validate that it has a tuple first (might be a better solution)
-        if type(keys) is str:
-            parsed_word += replace_with_string(keys, word)
-        else:
-            parsed_word += replace_with_tuple(keys, word)
+        parsed_word += get_matching_key(keys, word)
 
     return parsed_word
 
 
-def replace_with_string(key, word):
-    if key in word:
-        return Input.get(key)
-
-    return ""
-
-
-def replace_with_tuple(keys, word):
+def get_matching_key(keys, word):
     for key in keys:
         if key in word:
             return Input.get(keys)
