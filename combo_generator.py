@@ -12,6 +12,17 @@ def convert(args):
 
 
 def replace_all_inputs_in(word):
+    first_digit = re.search(r"\d", word)
+    words = (word[:first_digit.start()], word[first_digit.start():])
+    parsed_combo = ""
+    for w in words:
+        print(w)
+        parsed_combo += replace_matching_key(w)
+
+    return parsed_combo
+
+
+def replace_matching_key(word):
     for keys in Input.keys():
 
         # looks pretty bad but python automatically converts 1 length tuples into strings
@@ -24,15 +35,15 @@ def replace_all_inputs_in(word):
     return word
 
 
-def replace_with_string(keys, word):
-    if re.search(r'\b{0}'.format(keys), word):
-        word = word.replace(keys, Input.get(keys))
+def replace_with_string(key, word):
+    if re.search(r'\b' + key + r'\b', word):
+        word = word.replace(key, Input.get(key))
     return word
 
 
 def replace_with_tuple(keys, word):
     for key in keys:
-        if re.search(r'\b{0}'.format(key), word):
+        if re.search(r'\b' + key + r'\b', word):
             word = word.replace(key, Input.get(keys))
 
     return word
