@@ -36,8 +36,7 @@ def replace_matching_key(word):
 
 def get_matching_key(keys, word):
     for key in keys:
-        p = re.compile(f'{key}')
-        if p.match(word):
+        if key in word:
             return Input.get(keys)
 
     return ""
