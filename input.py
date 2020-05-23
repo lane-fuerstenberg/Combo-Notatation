@@ -1,13 +1,15 @@
 from emote import *
+from stances import Stances
 
 Input = {
-    ('DCK', 'dck'): '\\DCK\\',
-    ('FLK', 'flk',): '\\FLK\\',
-    ('SEN', 'sen',): '\\SEN\\',
+    ('DCK', 'dck'): Stances.get('DCK'),
+    ('FLK', 'flk',): Stances.get('FLK'),
+    ('SEN', 'sen',): Stances.get('SEN'),
     ('uf', 'u/f', 'uf+', 'u/f+'): UF,
     ('df', 'd/f', 'df+', 'd/f+'): DF,
     ('db', 'd/b', 'db+', 'd/b+'): DB,
     ('ub', 'u/b', 'ub+', 'u/b+'): UB,
+    ('ff', 'ff+', 'FF', 'FF+'): F + F_DARK,
     ('d', 'd+'): D,
     ('b', 'b+'): B,
     ('u', 'u+'): U,
@@ -30,4 +32,3 @@ Input = {
     (',',): SPACER,
     ('N', 'n', 'N+', 'n+'): N
 }
-
