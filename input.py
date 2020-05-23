@@ -2,6 +2,7 @@ from emote import *
 from stances import Stances
 
 Input = {
+    ('CD', 'cd'): F + N + D + DF,
     ('DCK', 'dck'): Stances.get('DCK'),
     ('FLK', 'flk',): Stances.get('FLK'),
     ('SEN', 'sen',): Stances.get('SEN'),
@@ -32,3 +33,4 @@ Input = {
     (',',): SPACER,
     ('N', 'n', 'N+', 'n+'): N
 }
+
