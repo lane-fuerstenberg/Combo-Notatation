@@ -8,7 +8,7 @@ def convert(args):
     for arg in args:
         combo_list.append(replace_matching_keys_in_word(arg))
 
-    converted_combo = "".join(str(x) for x in combo_list)
+    converted_combo = " ".join(str(x) for x in combo_list)
 
     for key, value in Stances.items():
         converted_combo = converted_combo.replace(value, key)
