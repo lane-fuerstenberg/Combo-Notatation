@@ -29,33 +29,46 @@ def replace_all_inputs_in(word):
 
 def replace_matching_key(word):
     parsed_word = ""
-    diagonal = re.match("[UDBFudbf][UDBFudbf]", word) # this regex needs more tweaking inputs like ff will get ignored
 
-    if diagonal:
+    diagonal = re.match(r"([UDFBudfb])[/]?(?!\1)[UDFBudfb]", word)
+    multiple_press = re.match(r"[1-4]\+[1-4]\+?[1-4]?\+?[1-4]?", word)
+
+    if diagonal or multiple_press:
+
+        if diagonal:
+
+            temp = diagonal
+
+        else:
+
+            temp = multiple_press
+
         for key, value in Input.items():
-            while does_key_has_match(key, diagonal.string):
+
+            if does_key_has_match(key, temp.string):
+
                 result = value
 
                 for k in key:
+
                     word.replace(k, "", 1)
                     parsed_word += result
                     result = ""
 
-                break
-
         return parsed_word
 
     for letter in word:
+
         for key, value in Input.items():
-            while does_key_has_match(key, letter):
+
+            if does_key_has_match(key, letter):
                 result = value
 
                 for k in key:
+
                     word = word.replace(k, "", 1)
                     parsed_word += result
                     result = ""
-
-                break
 
     return parsed_word
 
