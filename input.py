@@ -1,9 +1,9 @@
 from emote import *
 
 Input = {
-    ('DCK', 'dck'): '**DCK**',
-    ('FLK', 'flk'): '**FLK**',
-    ('CD', 'cd'): F + N + DF + F,
+    ('DCK', 'dck'): ' **DCK** ',
+    ('FLK', 'flk'): ' **FLK** ',
+    ('CD', 'cd'): F + N + D + DF,
     ('uf', 'u/f'): UF,
     ('df', 'd/f'): DF,
     ('db', 'd/b'): DB,
