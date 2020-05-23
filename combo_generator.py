@@ -45,3 +45,18 @@ def generate_regex_string():
     starting_regex_string = r"(\A|<^|>)" + any_char_regex
     ending_regex_string = any_char_regex + r"(\Z|>^|<)"
     return starting_regex_string, ending_regex_string
+
+
+def remove(word):
+    open = 0
+    closed = 0
+    while True:
+        open = word.find('<', open)
+        closed = word.find('>', closed)
+
+        i = 0
+        while True:
+            word = word[open:closed]
+
+
+    return word
