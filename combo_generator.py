@@ -26,7 +26,6 @@ def replace_matching_keys_in_word(word):
             regex = re.compile(regex_string[0] + key.replace("+", "\+") + regex_string[1])
             search = regex.search(word)
 
-            previous_index = 0
             while search:
                 index = word.find(key, search.start())
 
