@@ -19,7 +19,17 @@ def convert(args):
 
 def replace_all_inputs_in(word):
     first_digit = re.search(r"\d", word)
-    words = (word[:first_digit.start()], word[first_digit.start():])
+    tmp = (word[:first_digit.start()], word[first_digit.start():])
+    words = []
+
+    for i in range(len(tmp)):
+        string = tmp[i]
+        first_comma = re.search(",", string)
+        if first_comma:
+            split_comma_string = (string[:first_comma.start()], string[first_comma.start():])
+            for s in split_comma_string:
+                words.append(s)
+
     parsed_combo = ""
     for w in words:
         parsed_combo += replace_matching_key(w)
@@ -31,7 +41,7 @@ def replace_matching_key(word):
     parsed_word = ""
 
     diagonal = re.match(r"([UDFBudfb])[/]?(?!\1)[UDFBudfb]", word)
-    multiple_press = re.match(r"[1-4]\+[1-4]\+?[1-4]?\+?[1-4]?", word)
+    multiple_press = re.match(r"[1-4]\+[1-4]\+?[1-4]?\+?[1-4]?[,]?", word)
 
     if diagonal or multiple_press:
 
@@ -58,9 +68,7 @@ def replace_matching_key(word):
         return parsed_word
 
     for letter in word:
-
         for key, value in Input.items():
-
             if does_key_has_match(key, letter):
                 result = value
 
