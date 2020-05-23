@@ -17,11 +17,15 @@ def replace_matching_key(word):
         for key in keys:
             regex = re.compile(regex_string[0] + key.replace("+", "\+") + regex_string[1])
             search = regex.search(word)
-            if search:
+
+            while search:
                 index = word.find(key, search.start())
                 start = word[:index]
                 end = word[index + len(key):]
                 word = start + value + end
+
+                # repeats search to find if multiples exist
+                search = regex.search(word)
 
     return word
 
