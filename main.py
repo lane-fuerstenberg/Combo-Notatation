@@ -20,6 +20,7 @@ async def combo(ctx, *args):
     combo_list = combo_generator.convert(args)
     converted_combo = "".join(str(x) for x in combo_list)
     converted_combo = "**" + converted_combo + "**"
+    converted_combo.replace("\\", "")
     await ctx.send(converted_combo)
 
 

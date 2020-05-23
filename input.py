@@ -1,15 +1,17 @@
 from emote import *
 
 Input = {
-    ('DCK', 'dck'): F + NUM3,
+    ('DCK', 'dck'): '\\DCK\\',
+    ('FLK', 'flk',): '\\FLK\\',
+    ('SEN', 'sen',): '\\SEN\\',
     ('uf', 'u/f', 'uf+', 'u/f+'): UF,
     ('df', 'd/f', 'df+', 'd/f+'): DF,
     ('db', 'd/b', 'db+', 'd/b+'): DB,
     ('ub', 'u/b', 'ub+', 'u/b+'): UB,
-    ('d','d+'): D,
-    ('b','b+'): B,
-    ('u','u+'): U,
-    ('f','f+'): F,
+    ('d', 'd+'): D,
+    ('b', 'b+'): B,
+    ('u', 'u+'): U,
+    ('f', 'f+'): F,
     ('1+2+3+4',): NUM1234,
     ('2+3+4',): NUM234,
     ('1+3+4',): NUM134,
@@ -27,4 +29,5 @@ Input = {
     ('1',): NUM1,
     (',',): SPACER,
     ('N', 'n', 'N+', 'n+'): N
-    }
+}
+
