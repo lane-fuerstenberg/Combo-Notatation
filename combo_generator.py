@@ -32,14 +32,6 @@ def replace_matching_keys_in_word(word):
     return word
 
 
-def get_matching_key(keys, word):
-    for key in keys:
-        if key in word:
-            return Input.get(keys)
-
-    return ""
-
-
 def generate_regex_string():
     # purpose of this method is to generate regex that will not read discord emote data as a key
     any_char_regex = r"[A-Z,a-z,0-9,+]*"
