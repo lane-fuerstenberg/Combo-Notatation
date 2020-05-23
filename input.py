@@ -1,17 +1,20 @@
 from emote import *
+from stances import Stances
 
 Input = {
-    ('DCK', 'dck'): ' **DCK** ',
-    ('FLK', 'flk'): ' **FLK** ',
     ('CD', 'cd'): F + N + D + DF,
-    ('uf', 'u/f'): UF,
-    ('df', 'd/f'): DF,
-    ('db', 'd/b'): DB,
-    ('ub', 'u/b'): UB,
-    ('d',): D,
-    ('b',): B,
-    ('u',): U,
-    ('f',): F,
+    ('DCK', 'dck'): Stances.get('DCK'),
+    ('FLK', 'flk',): Stances.get('FLK'),
+    ('SEN', 'sen',): Stances.get('SEN'),
+    ('uf', 'u/f', 'uf+', 'u/f+'): UF,
+    ('df', 'd/f', 'df+', 'd/f+'): DF,
+    ('db', 'd/b', 'db+', 'd/b+'): DB,
+    ('ub', 'u/b', 'ub+', 'u/b+'): UB,
+    ('ff', 'ff+', 'FF', 'FF+'): F + F_DARK,
+    ('d', 'd+'): D,
+    ('b', 'b+'): B,
+    ('u', 'u+'): U,
+    ('f', 'f+'): F,
     ('1+2+3+4',): NUM1234,
     ('2+3+4',): NUM234,
     ('1+3+4',): NUM134,
@@ -28,5 +31,6 @@ Input = {
     ('2',): NUM2,
     ('1',): NUM1,
     (',',): SPACER,
-    ('N', 'n'): N
+    ('N', 'n', 'N+', 'n+'): N
 }
+
