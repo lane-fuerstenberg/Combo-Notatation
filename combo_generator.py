@@ -48,15 +48,21 @@ def generate_regex_string():
 
 
 def remove(word):
-    open = 0
-    closed = 0
-    while True:
-        open = word.find('<', open)
-        closed = word.find('>', closed)
+    m_start = re.search('^.+^<(?=<)', word)
+    while m_start:
+        word = word[m_start.end():]
+        m_start = re.search('^.+^>(?=<)', word)
 
-        i = 0
-        while True:
-            word = word[open:closed]
+    m_end = re.search('(?<=>)^<.+$', word)
+    while m_end:
+        word = word[:m_end.start()]
+        m_end = re.search('(?<=>)^<.+$', word)
+
+    # cannot handle multiple removes still
+    m_middle = re.search(r'(?<=>).+(?=<)', word)
+    while m_middle:
+        word = word[:m_middle.start()] + word[m_middle.end():]
+        m_middle = re.search(r'(?<=>).+(?=<)', word)
 
 
     return word
