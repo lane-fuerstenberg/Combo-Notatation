@@ -3,73 +3,38 @@ import re
 
 
 def convert(args):
-    parsed_combo = []
+    combo_list = []
+    for arg in args:
+        combo_list.append(replace_matching_keys_in_word(arg))
 
-    if isinstance(args, tuple):
-
-        for arg in args:
-            parsed_combo.append(replace_all_inputs_in(arg))
-            pass
-
-    else:
-
-        parsed_combo.append(replace_all_inputs_in(args))
-
-    return parsed_combo
-
-def replace_all_inputs_in(word):
-    first_digit = re.search(r"\d", word)
-    words = (word[:first_digit.start()], word[first_digit.start():])
-    parsed_combo = ""
-    for w in words:
-        parsed_combo += replace_matching_key(w)
-        
-    return parsed_combo
+    return combo_list
 
 
-def replace_matching_key(word):
-    parsed_word = ""
-    diagonal = re.match("[UDBFudbf][UDBFudbf]", word) # this regex needs more tweaking inputs like ff will get ignored
+def replace_matching_keys_in_word(word):
+    # regex for avoiding reading emote data as key
+    regex_string = generate_regex_string()
 
-    if diagonal:
-        for key, value in Input.items():
-            while does_key_has_match(key, diagonal.string):
-                result = value
+    for keys, value in Input.items():
+        for key in keys:
+            # replaces + for \+ because it needs + to be read as literal
+            regex = re.compile(regex_string[0] + key.replace("+", "\+") + regex_string[1])
+            search = regex.search(word)
 
-                for k in key:
-                    word.replace(k, "", 1)
-                    parsed_word += result
-                    result = ""
+            while search:
+                index = word.find(key, search.start())
+                start = word[:index]
+                end = word[index + len(key):]
+                word = start + value + end
 
-                break
+                # repeats search to find if multiples exist
+                search = regex.search(word)
 
-        return parsed_word
-
-    for letter in word:
-        for key, value in Input.items():
-            while does_key_has_match(key, letter):
-                result = value
-
-                for k in key:
-                    word = word.replace(k, "", 1)
-                    parsed_word += result
-                    result = ""
-
-                break
-
-    return parsed_word
+    return word
 
 
-def get_matching_key(keys, word):
-    for key in keys:
-        if key in word:
-            return Input.get(keys)
-
-    return ""
-
-def does_key_has_match(keys, word):
-    for key in keys:
-        if key == word:
-            return True
-
-    return False
+def generate_regex_string():
+    # purpose of this method is to generate regex that will not read discord emote data as a key
+    any_char_regex = r"[A-Z,a-z,0-9,+]*"
+    starting_regex_string = r"(\A|<^|>)" + any_char_regex
+    ending_regex_string = any_char_regex + r"(\Z|>^|<)"
+    return starting_regex_string, ending_regex_string
