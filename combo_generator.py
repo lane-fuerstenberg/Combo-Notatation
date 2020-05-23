@@ -2,83 +2,20 @@ from input import Input
 import re
 
 
-def convert(args):
-    parsed_combo = []
-
-    if isinstance(args, tuple):
-
-        for arg in args:
-            parsed_combo.append(replace_all_inputs_in(arg))
-            pass
-
-    else:
-
-        parsed_combo.append(replace_all_inputs_in(args))
-
-    return parsed_combo
-
-def replace_all_inputs_in(word):
-    first_digit = re.search(r"\d", word)
-    tmp = (word[:first_digit.start()], word[first_digit.start():])
-    words = []
-
-    for i in range(len(tmp)):
-        string = tmp[i]
-        first_comma = re.search(",", string)
-        if first_comma:
-            split_comma_string = (string[:first_comma.start()], string[first_comma.start():])
-            for s in split_comma_string:
-                words.append(s)
-
-    parsed_combo = ""
-    for w in words:
-        parsed_combo += replace_matching_key(w)
-        
-    return parsed_combo
-
-
 def replace_matching_key(word):
-    parsed_word = ""
+    regex_string = generate_regex_string()
 
-    diagonal = re.match(r"([UDFBudfb])[/]?(?!\1)[UDFBudfb]", word)
-    multiple_press = re.match(r"[1-4]\+[1-4]\+?[1-4]?\+?[1-4]?[,]?", word)
+    for keys, value in Input.items():
+        for key in keys:
+            regex = re.compile(regex_string[0] + key.replace("+", "\+") + regex_string[1])
+            search = regex.search(word)
+            if search:
+                index = word.find(key, search.start())
+                start = word[:index]
+                end = word[index + len(key):]
+                word = start + value + end
 
-    if diagonal or multiple_press:
-
-        if diagonal:
-
-            temp = diagonal
-
-        else:
-
-            temp = multiple_press
-
-        for key, value in Input.items():
-
-            if does_key_has_match(key, temp.string):
-
-                result = value
-
-                for k in key:
-
-                    word.replace(k, "", 1)
-                    parsed_word += result
-                    result = ""
-
-        return parsed_word
-
-    for letter in word:
-        for key, value in Input.items():
-            if does_key_has_match(key, letter):
-                result = value
-
-                for k in key:
-
-                    word = word.replace(k, "", 1)
-                    parsed_word += result
-                    result = ""
-
-    return parsed_word
+    return word
 
 
 def get_matching_key(keys, word):
@@ -88,9 +25,9 @@ def get_matching_key(keys, word):
 
     return ""
 
-def does_key_has_match(keys, word):
-    for key in keys:
-        if key == word:
-            return True
 
-    return False
+def generate_regex_string():
+    any_char_regex = r"[A-Z,a-z,0-9,+]*"
+    starting_regex_string = r"(\A|<^|>)" + any_char_regex
+    ending_regex_string = any_char_regex + r"(\Z|>^|<)"
+    return starting_regex_string, ending_regex_string
