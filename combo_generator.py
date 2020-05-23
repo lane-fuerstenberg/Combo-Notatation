@@ -2,6 +2,14 @@ from input import Input
 import re
 
 
+def convert(args):
+    combo_list = []
+    for arg in args:
+        combo_list.append(replace_matching_key(arg))
+
+    return combo_list
+
+
 def replace_matching_key(word):
     regex_string = generate_regex_string()
 
