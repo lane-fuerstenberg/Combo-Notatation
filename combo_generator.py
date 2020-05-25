@@ -45,3 +45,42 @@ def generate_regex_string():
     starting_regex_string = r"(\A|<^|>)" + any_char_regex
     ending_regex_string = any_char_regex + r"(\Z|>^|<)"
     return starting_regex_string, ending_regex_string
+
+
+def remove_non_recognized(word):
+    if word[0] != '<':
+        i = 0
+        while True:
+            i += 1
+            if word[i] == '<':
+                word = word[i:]
+                break
+
+    word_len = len(word) - 1
+    if word[word_len] != '>':
+        i = word_len
+        while True:
+            i -= 1
+            if word[i] == '>':
+                word = word[:i + 1]
+                break
+
+    found_index = 0
+    while found_index != -1:
+        check_index_is_not_stuck = word.find('>', found_index)
+        if check_index_is_not_stuck == found_index or check_index_is_not_stuck == len(word) - 1:
+            break
+
+        found_index = check_index_is_not_stuck
+
+        end_index = 0
+        while True:
+            end_index += 1
+            letter = word[found_index + end_index]
+            if letter == '<':
+                word = word[:found_index + 1] + word[found_index + end_index:]
+                found_index += 1
+                break
+
+    return word
+
