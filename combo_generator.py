@@ -9,8 +9,9 @@ def convert(args):
         combo_list.append(replace_matching_keys_in_word(arg))
 
     converted_combo = "".join(str(x) for x in combo_list)
+    converted_combo = remove_non_recognized(converted_combo)
 
-    converted_combo = remove(converted_combo)
+    # stances are inserted with <STANCE> and then replaced with STANCE
     for key, value in Stances.items():
         converted_combo = converted_combo.replace(value, key)
 
@@ -48,7 +49,7 @@ def generate_regex_string():
     return starting_regex_string, ending_regex_string
 
 
-def remove(word):
+def remove_non_recognized(word):
     m_start = re.search('^.+^>(?=<)', word)
     if m_start:
         word = word[m_start.end():]
