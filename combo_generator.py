@@ -8,8 +8,9 @@ def convert(args):
     for arg in args:
         combo_list.append(replace_matching_keys_in_word(arg))
 
-    converted_combo = " ".join(str(x) for x in combo_list)
+    converted_combo = "".join(str(x) for x in combo_list)
 
+    converted_combo = remove(converted_combo)
     for key, value in Stances.items():
         converted_combo = converted_combo.replace(value, key)
 
@@ -48,21 +49,29 @@ def generate_regex_string():
 
 
 def remove(word):
-    m_start = re.search('^.+^<(?=<)', word)
-    while m_start:
+    m_start = re.search('^.+^>(?=<)', word)
+    if m_start:
         word = word[m_start.end():]
-        m_start = re.search('^.+^>(?=<)', word)
 
     m_end = re.search('(?<=>)^<.+$', word)
-    while m_end:
+    if m_end:
         word = word[:m_end.start()]
-        m_end = re.search('(?<=>)^<.+$', word)
 
-    # cannot handle multiple removes still
-    m_middle = re.search(r'(?<=>).+(?=<)', word)
-    while m_middle:
-        word = word[:m_middle.start()] + word[m_middle.end():]
-        m_middle = re.search(r'(?<=>).+(?=<)', word)
+    found_index = 0
+    while found_index != -1:
+        check_index_is_not_stuck = word.find('>', found_index)
+        if check_index_is_not_stuck == found_index or check_index_is_not_stuck == len(word) - 1:
+            break
 
+        found_index = check_index_is_not_stuck
+
+        end_index = 0
+        while True:
+            end_index += 1
+            letter = word[found_index + end_index]
+            if letter == '<':
+                word = word[:found_index + 1] + word[found_index + end_index:]
+                found_index += 1
+                break
 
     return word
