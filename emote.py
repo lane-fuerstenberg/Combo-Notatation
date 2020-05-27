@@ -1,4 +1,4 @@
-
+# todo: needs dark emotes added
 
 UF = '<:CUF1:710506476275236968>'
 DF = '<:CDF1:710506476296470568>'

@@ -1,6 +1,8 @@
 from emote import *
 from stances import Stances
 
+# todo: needs capital directions to be set to dark directional emotes
+
 Input = {
     ('CD', 'cd'): F + N + D + DF,
     ('DCK', 'dck'): Stances.get('DCK'),
@@ -10,7 +12,6 @@ Input = {
     ('df', 'd/f', 'df+', 'd/f+'): DF,
     ('db', 'd/b', 'db+', 'd/b+'): DB,
     ('ub', 'u/b', 'ub+', 'u/b+'): UB,
-    ('ff', 'ff+', 'FF', 'FF+'): F + F_DARK,
     ('d', 'd+'): D,
     ('b', 'b+'): B,
     ('u', 'u+'): U,
