@@ -18,6 +18,7 @@ def convert(args):
     return converted_combo
 
 
+# todo: needs to validate user input does not contain regex keywords in some form
 def replace_matching_keys_in_word(word):
     # regex for avoiding reading emote data as key
     regex_string = generate_regex_string()
@@ -49,24 +50,18 @@ def generate_regex_string():
     return starting_regex_string, ending_regex_string
 
 
+# todo: needs major refactoring
 def remove_non_recognized(word):
-    if word[0] != '<':
-        i = 0
-        while True:
-            i += 1
-            if word[i] == '<':
-                word = word[i:]
-                break
+    # everything to do with this part of code sucks, needs better refactor
+    word = remove_from_start(word)
+    word = remove_from_end(word)
+    word = remove_from_middle(word)
 
-    word_len = len(word) - 1
-    if word[word_len] != '>':
-        i = word_len
-        while True:
-            i -= 1
-            if word[i] == '>':
-                word = word[:i + 1]
-                break
+    return word
 
+
+# todo: needs major refactoring
+def remove_from_middle(word):
     found_index = 0
     while found_index != -1:
         check_index_is_not_stuck = word.find('>', found_index)
@@ -83,6 +78,30 @@ def remove_non_recognized(word):
                 word = word[:found_index + 1] + word[found_index + end_index:]
                 found_index += 1
                 break
+    return word
 
+
+# todo: needs major refactoring
+def remove_from_end(word):
+    word_len = len(word) - 1
+    if word[word_len] != '>':
+        i = word_len
+        while True:
+            i -= 1
+            if word[i] == '>':
+                word = word[:i + 1]
+                break
+    return word
+
+
+# todo: needs major refactoring
+def remove_from_start(word):
+    if word[0] != '<':
+        i = 0
+        while True:
+            i += 1
+            if word[i] == '<':
+                word = word[i:]
+                break
     return word
 

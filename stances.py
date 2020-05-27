@@ -1,8 +1,20 @@
 
+# todo: needs all stances added to stances_raw
+
 stances_raw = (
     'DCK',
     'FLK',
-    'SEN'
+    'SEN',
+    'SNK',
+    'DES',
+    'RWV',
+    'LWV',
+    'DSS',
+    'SWAY',
+    'SWY',
+    'RSS',
+    'FLY',
+    'SWS'
 )
 
 Stances = {}
