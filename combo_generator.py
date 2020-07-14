@@ -3,6 +3,8 @@ from stances import Stances
 import re
 
 
+# could this be set with limitation to only take arrays of strings? it converts strings into arrays as is
+# which leads to unintended behavior at times during testing, python sucks :)
 def convert(args):
     combo_list = []
     for arg in args:

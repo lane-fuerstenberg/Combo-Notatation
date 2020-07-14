@@ -5,9 +5,11 @@ from stances import Stances
 
 Input = {
     ('CD', 'cd'): F + N + D + DF,
-    ('DCK', 'dck'): Stances.get('DCK'),
-    ('FLK', 'flk',): Stances.get('FLK'),
-    ('SEN', 'sen',): Stances.get('SEN'),
+    ('hcb', 'hcb+', 'HCB', 'HCB+'): F + DF + D + DB + B,
+    ('hcf', 'hcf+', 'HCF', 'HCF+'): B + DB + D + DF + F,
+    ('qcf', 'qcf+', 'QCF', 'QCF+'): D + DF + F,
+    ('qcb', 'qcb+', 'QCB', 'QCB+'): D + DB + B,
+    ('wr', 'wr+', 'WR', 'WR+'): F + F + F,
     ('uf', 'u/f', 'uf+', 'u/f+'): UF,
     ('df', 'd/f', 'df+', 'd/f+'): DF,
     ('db', 'd/b', 'db+', 'd/b+'): DB,
@@ -34,4 +36,8 @@ Input = {
     (',',): SPACER,
     ('N', 'n', 'N+', 'n+'): N
 }
+
+
+for key, value in Stances.items():
+    Input.__setitem__((key.lower(), key.upper()), value)
 
